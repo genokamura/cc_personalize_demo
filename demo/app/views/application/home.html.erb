@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>Demo</title>
+  </head>
+  <body>
+    <h1>Demo</h1>
+    <h2>Get Recommendations</h2>
+    <%= form_with url: "/recommends", method: :get, local: true do |f| %>
+      <%= f.select :recommender, {BEST_SELLERS: 0, RECOMMEND_FOR_YOU: 1} %>
+      <%= f.label :user_id, "USER ID" %>
+      <%= f.text_field :user_id, required: true, pattern: "^[0-9]+$" %>
+      <%= f.label :size, "SHOWN ITEMS" %>
+      <%= f.text_field :size, required: true, pattern: "^[0-9]+$" %>
+      <%= f.button "GET"%>
+    <% end %>
+  </body>
+</html>
+
