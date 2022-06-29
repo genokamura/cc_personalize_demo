@@ -30,9 +30,14 @@ event_types = ['View', 'Purchase']
 start = 1617202800
 end   = 1648652400
 
-with open('./generated_interaction_data.csv', 'w+') as f:
+# generated_interaction_data.csvとして出力
+with open('./generated_random_interaction_data.csv', 'w+') as f:
     writer = csv.writer(f, lineterminator='\n')
     writer.writerow(header.split())
     for i in range(data_size):
-        writer.writerow([str(random.randint(1, user_size)), str(random.randint(1, item_size)), random.choice(event_types), random.randint(start, end)])
-
+        writer.writerow([
+            str(random.randint(1, user_size)), 
+            str(random.randint(1, item_size)),
+            random.choice(event_types),
+            random.randint(start, end)
+            ])

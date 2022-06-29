@@ -37,13 +37,15 @@ Amazon Personalizeの機能を紹介するデモ。
 }
 ```
 
-- 以下のコマンドを実行することで学習用のランダムなダミーデータを生成できる。
+### ランダム生成したダミーデータを利用する場合
+
+- 以下のコマンドを実行することで学習用のランダムなダミーデータを生成できる
 
 ```(shell)
-python generate_interraction_date.py
+python generate_ramdom.py
 ```
 
-- `generated_interaction_date.csv`が生成されたことを確認する。このCSVは以下のようなデータとなる。
+- `generated_random_interaction_data.csv`が生成されたことを確認する。このCSVは以下のようなデータとなる。
 
 ```(csv)
 USER_ID,ITEM_ID,EVENT_TYPE,TIMESTAMP
@@ -59,6 +61,33 @@ USER_ID,ITEM_ID,EVENT_TYPE,TIMESTAMP
 ...
 ```
 
+### SUSHI Preference Data Setsを利用する場合
+
+公開されている寿司に関する嗜好の調査結果の[データセット](http://www.kamishima.net/sushi/)を活用する。
+
+1. [こちら](http://www.kamishima.net/sushi/) よりデータセットをダウンロード
+2. ダウンロードしたファイルのうち、`sushi3a.5000.10.order`ファイルをコピー
+3. 以下のコマンドを実行することで学習用のダミーデータを生成できる
+
+```(shell)
+python generate_sushi.py sushi3a.5000.10.order
+```
+
+- `generated_sushi_interaction_data.csv`が生成されたことを確認する。このCSVは以下のようなデータとなる。
+
+```(csv)
+USER_ID,ITEM_ID,EVENT_TYPE,TIMESTAMP
+1,5,Purchase,1632299870
+1,0,Purchase,1632966077
+1,3,View,1647927814
+1,4,View,1620623738
+1,6,View,1642763855
+2,0,Purchase,1627349264
+2,9,Purchase,1636151520
+2,6,View,1640738875
+2,3,View,1619022370
+```
+
 - 適当なS3バケットにCSVをアップロードしておく
 
 - Amazon Personalize用のIAMロールを作成し、以下の権限を付与しておく
@@ -70,7 +99,7 @@ USER_ID,ITEM_ID,EVENT_TYPE,TIMESTAMP
 ## ２．Amazon Personalizeに新たなDataset Groupを作成する
 
 1. コンソールにサインイン
-2. Amazon Personalizeダッシュボード二アクセス
+2. Amazon Personalizeダッシュボードにアクセス
 3. Dataset Groupの作成
 4. Dataset GroupのDomainは「E-commerce」を選択
 5. 生成したCSVをインタラクションデータとしてインポートするジョブを作成する

@@ -1,2 +1,3 @@
-generated_interaction_data.csv
+*.csv
+*.order
 
