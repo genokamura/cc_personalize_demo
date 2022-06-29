@@ -1,18 +1,42 @@
 <html>
   <head>
-    <title>Demo</title>
+    <title>寿司のおすすめランキング</title>
   </head>
   <body>
-    <h1>Demo</h1>
-    <h2>Get Recommendations</h2>
+    <% items = [
+      'えび',
+      '穴子',
+      'まぐろ',
+      'いか',
+      'うに',
+      'いくら',
+      '玉子',
+      'とろ',
+      '鉄火巻',
+      'かっぱ巻'
+    ] %>
+    <div class='content'>
+    <h1>寿司のおすすめランキング</h1>
     <%= form_with url: "/recommends", method: :get, local: true do |f| %>
-      <%= f.select :recommender, {BEST_SELLERS: 0, RECOMMEND_FOR_YOU: 1} %>
-      <%= f.label :user_id, "USER ID" %>
-      <%= f.text_field :user_id, required: true, pattern: "^[0-9]+$" %>
-      <%= f.label :size, "SHOWN ITEMS" %>
-      <%= f.text_field :size, required: true, pattern: "^[0-9]+$" %>
+      <% choices = {ベストセラー: 0, あなたへのおすすめ: 1} %>
+      <%= f.label :recommender, "リコメンダーの種別"%>
+      <%= f.select :recommender, choices, :selected=>@recommender %>
+      <%= f.label :user_id, "ユーザ ID"%>
+      <%= f.text_field :user_id, value: @id, required: true, pattern: "^[0-9]+$" %>
+      <%= f.label :size, "最大表示件数" %>
+      <%= f.text_field :size, value: @size, required: true, pattern: "^[0-9]+$" %>
       <%= f.button "GET"%>
     <% end %>
+    <p>※アイテム数の制限により指定した数量取得できない場合があります。</p>
+    <h2>お品書き</h2>
+    <ul>
+    <% for val in items do %>
+      <li>
+        <%= image_tag items.index(val).to_s + ".png", :width => '30' %></td>
+        <%= val %>
+      </li>
+    <% end %>
+    </ul>
+    </div>
   </body>
 </html>
-
