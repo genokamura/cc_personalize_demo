@@ -3,40 +3,74 @@
     <title>寿司のおすすめランキング</title>
   </head>
   <body>
-    <% items = [
-      'えび',
-      '穴子',
-      'まぐろ',
-      'いか',
-      'うに',
-      'いくら',
-      '玉子',
-      'とろ',
-      '鉄火巻',
-      'かっぱ巻'
-    ] %>
     <div class='content'>
-    <h1>寿司のおすすめランキング</h1>
-    <%= form_with url: "/recommends", method: :get, local: true do |f| %>
-      <% choices = {ベストセラー: 0, あなたへのおすすめ: 1} %>
-      <%= f.label :recommender, "リコメンダーの種別"%>
-      <%= f.select :recommender, choices, :selected=>@recommender %>
-      <%= f.label :user_id, "ユーザ ID"%>
-      <%= f.text_field :user_id, value: @id, required: true, pattern: "^[0-9]+$" %>
-      <%= f.label :size, "最大表示件数" %>
-      <%= f.text_field :size, value: @size, required: true, pattern: "^[0-9]+$" %>
-      <%= f.button "GET"%>
-    <% end %>
-    <p>※アイテム数の制限により指定した数量取得できない場合があります。</p>
-    <h2>お品書き</h2>
-    <ul>
-    <% for val in items do %>
-      <li>
-        <%= image_tag items.index(val).to_s + ".png", :width => '30' %></td>
-        <%= val %>
-      </li>
-    <% end %>
-    </ul>
+      <div class='header'>
+        <div class='header-content'>
+          <div class='row align-items-center'>
+            <div class='col-auto'>
+              <nav class='navbar'>
+                <%= image_tag "logo.png", :class=>'logo' %>
+              </nav>
+            </div>
+            <div class='auth-info'>
+              <%= @user_name %>様
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='login-box'>
+        <%= form_with url: "/", method: :get, local: true do |f| %>
+          <% if @is_logged_in %>
+            <%= f.button "ログアウト"%>
+          <% else %>
+            <%= f.label :user_id, "ユーザ ID"%>
+            <%= f.text_field :user_id, value: @id, required: true, pattern: "^[0-9]+$" %>
+            <%= f.button "ログイン"%>
+          <% end %>
+        <% end %>
+      </div>
+      <div class='position-relative'>
+        <h2><%= @is_logged_in ? 'あなたへのおすすめ' : 'ベストセラー' %></h2>
+        <div class='item-list'>
+          <% index = 1 %>
+          <% for val in @res do %>
+            <div class='item'>
+              <div class='item-inner'>
+                <div class='item-body'>
+                  <div class="ranking rank-<%= index.to_s %>"><%= index.to_s %></div>
+                  <h5><%= @items[val.item_id.to_i].getNeta %></h5>
+                  <div class='item-image'>
+                    <%= image_tag val.item_id + ".png", :width => '100%' %>
+                  </div>
+                  <div class='item-price'>￥<%= @items[val.item_id.to_i].getPrice %></div>
+                </div>
+              </div>
+            </div>
+            <% index += 1 %>
+          <% end %>
+        </div>
+      </div>
+      <h2>お品書き</h2>
+        <div class='item-list'>
+          <% index = 1 %>
+          <% for val in @items do %>
+            <div class='item'>
+              <div class='item-inner'>
+                <div class='item-body'>
+                  <h5><%= val.getNeta %></h5>
+                  <div class='item-image'>
+                    <%= image_tag val.getId.to_s + ".png", :width => '100%' %>
+                  </div>
+                  <div class='item-price'>￥<%= val.getPrice %></div>
+                </div>
+              </div>
+            </div>
+            <% index += 1 %>
+          <% end %>
+        </div>
+    </div>
+    <div class='footer'>
+      © 2022 supersoftware., co Ltd.
     </div>
   </body>
 </html>

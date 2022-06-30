@@ -13,3 +13,142 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  background-color: lightcyan;
+  margin: auto;
+  text-align: left;
+  width: 1280px;
+}
+
+div {
+  display: block;
+}
+
+div .header {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+div .header .header-content {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col {
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.col-auto {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 100%;
+}
+
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.login-box {
+  background-color: #fed700;
+  justify-content: right;
+}
+
+.auth-info {
+  position: relative;
+  padding-right: 15px;
+  padding-left: 15px;
+  text-align: right;
+}
+
+.login-form {
+  display: flex;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.item-list {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item {
+  width: 250px;
+  height: auto;
+}
+
+.item .item-inner {
+  padding: 1rem;
+}
+
+.item .item-inner .item-body {
+  text-align: center;
+  padding-bottom: 0.5rem;
+}
+
+.item .item-inner .item-body .item-image {
+  height: 240px;
+}
+
+.item .item-inner .item-body .item-price {
+  color: #444;
+  text-align: right;
+}
+
+.ranking {
+  font-size: large;
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: left;
+  padding-left: 15%;
+}
+
+.rank-1 {
+  color: red;
+  background: #fa0;
+}
+
+.rank-2 {
+  color: blue;
+  background: #bbb;
+}
+
+.rank-3 {
+  color: white;
+  background: #930;
+}
+
+.rank-4, .rank-5 {
+  background: #eee;
+}
+
+.footer {
+  padding-left: 2%;
+  color: #444;
+  background: #aaa;
+}

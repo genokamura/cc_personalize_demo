@@ -36,27 +36,5 @@
       </li>
     <% end %>
     </ul>
-    <h2>おすすめランキング</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>順位</th>
-          <th>ネタ</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% index = 1 %>
-        <% for val in @res do %>
-          <tr>
-            <td><%= index %></td>
-            <td>
-              <%= image_tag val.item_id + ".png", :width => '30' %>
-              <%= items[val.item_id.to_i] %>
-            </td>
-          </tr>
-          <% index += 1 %>
-        <% end %>
-      </tbody>
-    </table>
   </body>
 </html>
