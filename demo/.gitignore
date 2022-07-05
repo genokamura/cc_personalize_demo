@@ -37,3 +37,4 @@
 # environmentfile
 .env
 
+/vendor/bundle
