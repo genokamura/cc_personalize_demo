@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
 
     res2 = client.get_recommendations({
       user_id: '5001',
-      num_results: 5,
+      num_results: 4,
       recommender_arn: ENV['ARN_PREFIX'] + ENV['BEST_SELLERS']
     })
 
