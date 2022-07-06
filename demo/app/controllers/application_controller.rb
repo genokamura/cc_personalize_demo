@@ -23,8 +23,6 @@ class ApplicationController < ActionController::Base
       region: ENV['AWS_REGION']
     )
 
-    # ARNのプレフィクスを環境変数から取得 
-    recommender_arn = ENV['ARN_PREFIX']
 
     # ログインボタン押下でユーザIDを特定
     id = params['user_id']
@@ -35,21 +33,23 @@ class ApplicationController < ActionController::Base
     if @is_logged_in
       @user_name = 'ユーザ' + id
       user_id = id.to_s
-      # ログイン状態であれば「あなたへのおすすめ」
-      recommender_arn += ENV['RECOMMEND_FOR_YOU']
-    else
-      @user_name = 'ゲスト'
-      user_id = '5001'
-      # ログイン状態でなければ「ベストセラー」
-      recommender_arn += ENV['BEST_SELLERS']
+
+      response = client.get_recommendations({
+        user_id: user_id,
+        num_results: 5,
+        recommender_arn: ENV['ARN_PREFIX'] + ENV['RECOMMEND_FOR_YOU']
+      })
+
+      @res = response[:item_list]
     end
 
-    response = client.get_recommendations({
-      user_id: user_id,
-      num_results: 5,
-      recommender_arn: recommender_arn
+
+    res2 = client.get_recommendations({
+      user_id: '5001',
+      num_results: 4,
+      recommender_arn: ENV['ARN_PREFIX'] + ENV['BEST_SELLERS']
     })
 
-    @res = response[:item_list]
+    @res2 = res2[:item_list]
   end
 end
